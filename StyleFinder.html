@@ -33,13 +33,15 @@
             --warning-color: #f39c12;
             --ai-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b6b 100%);
         }
-
+ 
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--dark-color);
             overflow-x: hidden;
-            background: var(--gradient);
+            background: linear-gradient(-45deg, #667eea, #764ba2, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             position: relative;
         }
 
@@ -51,25 +53,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background:
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(78, 205, 196, 0.2) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.05)"><polygon points="0,0 1000,100 1000,0"/></svg>');
             z-index: -1;
         }
 
-        @keyframes backgroundShift {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
             }
-
             50% {
-                opacity: 0.8;
-                transform: scale(1.1) rotate(2deg);
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
             }
         }
 
@@ -91,6 +87,14 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header.scrolled nav a {
+            color: var(--dark-color);
+        }
+
+        .header.scrolled .logo-shine {
+            filter: brightness(1) invert(0);
         }
 
         nav {
@@ -150,13 +154,13 @@
         }
 
         /* Hero Section */
-        .hero-section {
+        .hero-section { 
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white;
+            color: white; 
             position: relative;
             overflow: hidden;
             padding: 100px 5% 50px;
@@ -166,7 +170,7 @@
             max-width: 1200px;
             z-index: 2;
             position: relative;
-        }
+        } 
 
         .ai-badge {
             display: inline-flex;
@@ -192,7 +196,7 @@
         }
 
         .hero-title {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 800;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #fff 0%, #a8edea 50%, #fed6e3 100%);
@@ -203,7 +207,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
             opacity: 0.9;
             animation: slideUp 1s ease 0.3s forwards;
@@ -226,7 +230,7 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             min-width: 150px;
-            animation: fadeInUp 0.8s ease forwards;
+            animation: slideUp 0.8s ease forwards;
         }
 
         .stat-number {
@@ -240,7 +244,7 @@
         }
 
         .cta-section {
-            margin-top: 3rem;
+            margin-top: 2.5rem;
             animation: slideUp 1s ease 0.6s forwards;
         }
 
@@ -286,10 +290,10 @@
         }
 
         /* AI Style Finder Section */
-        .style-finder-section {
+        .style-finder-section { 
             padding: 5rem 5%;
             background: white;
-            position: relative;
+            position: relative; 
         }
 
         .section-title {
@@ -312,148 +316,160 @@
             margin-right: auto;
         }
 
-        .style-finder-container {
-            max-width: 1400px;
+        .style-finder-app {
+            max-width: 900px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        /* Photo Upload Section */
-        .upload-section {
-            background: var(--gradient-4);
+            background: white;
+            border-radius: 25px;
+            box-shadow: var(--hover-shadow);
             padding: 3rem;
-            border-radius: 30px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            border: 2px dashed var(--accent-color);
             transition: all 0.3s ease;
         }
 
-        .upload-section:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
+        /* App States */
+        .app-state {
+            display: none;
+        }
+        .app-state.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
         }
 
-        .upload-icon {
-            width: 100px;
-            height: 100px;
-            background: var(--gradient-2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            color: white;
-            font-size: 3rem;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .upload-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .upload-subtitle {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .upload-button {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+        /* Upload State */
+        .upload-area {
+            border: 3px dashed var(--accent-color);
+            border-radius: 20px;
+            padding: 4rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
         }
-
-        .upload-button:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(69, 183, 209, 0.4);
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: #fafcff;
+            transform: scale(1.02);
         }
-
-        /* AI Analysis Panel */
-        .analysis-panel {
-            background: white;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .upload-area i {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
         }
-
-        .analysis-header {
-            background: var(--gradient);
+        .upload-area h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .upload-area p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .upload-btn {
+            background: var(--accent-color);
             color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .analysis-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .analysis-content {
-            padding: 2rem;
-        }
-
-        .analysis-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .analysis-step {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--light-color);
-            border-radius: 15px;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
-
-        .analysis-step:hover {
-            background: rgba(69, 183, 209, 0.1);
-            transform: translateX(10px);
+        .upload-btn:hover {
+            background: var(--primary-color);
         }
 
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background: var(--accent-color);
-            border-radius: 50%;
+        /* Analyzing State */
+        .analyzing-view {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
         }
-
-        .step-content h4 {
-            font-size: 1.1rem;
+        .image-preview-container {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+            border: 5px solid white;
+            box-shadow: 0 0 0 5px var(--accent-color);
+        }
+        .image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+            animation: scan 2s linear infinite;
+        }
+        @keyframes scan {
+            from { top: 0; }
+            to { top: 100%; }
+        }
+        .analyzing-text {
+            font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
-            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--light-color);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .progress-bar-inner {
+            width: 0;
+            height: 100%;
+            background: var(--gradient-2);
+            border-radius: 5px;
+            transition: width 0.5s ease;
         }
 
-        .step-content p {
+        /* Results State */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .result-card {
+            background: var(--light-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        .result-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+        .result-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .result-score {
+            background: var(--success-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
             font-size: 0.9rem;
-            color: #666;
+            display: inline-block;
+            margin-bottom: 1rem;
         }
 
         /* Features Grid */
@@ -479,7 +495,7 @@
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; 
         }
 
         .feature-card::before {
@@ -522,169 +538,139 @@
             line-height: 1.6;
         }
 
-        /* Interactive Demo */
-        .demo-section {
+        /* How It Works Section */
+        .how-it-works-section {
             padding: 5rem 5%;
             background: var(--dark-color);
             color: white;
             text-align: center;
         }
 
-        .demo-container {
+        .how-it-works-container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .demo-interface {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
-            padding: 3rem;
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
             margin-top: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .demo-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .control-group {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 20px;
-            text-align: left;
-        }
-
-        .control-label {
-            font-weight: 600;
-            margin-bottom: 1rem;
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            justify-content: space-between;
+            position: relative;
         }
 
-        .control-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, var(--accent-color), var(--accent-color) 10px, transparent 10px, transparent 20px);
+            transform: translateY(-50%);
         }
 
-        .control-option {
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 25px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .control-option:hover,
-        .control-option.active {
-            background: var(--accent-color);
-            transform: translateY(-2px);
-        }
-
-        .demo-result {
-            background: white;
-            color: var(--dark-color);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .result-card {
-            background: var(--light-color);
-            padding: 1.5rem;
-            border-radius: 15px;
+        .timeline-step {
+            flex: 1;
             text-align: center;
+            position: relative;
         }
 
-        .result-image {
-            width: 100%;
-            height: 200px;
-            background: var(--gradient-5);
-            border-radius: 10px;
-            margin-bottom: 1rem;
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--dark-color);
+            border: 4px solid var(--accent-color);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: white;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
         }
 
-        .result-title {
-            font-weight: 600;
+        .timeline-step:hover .timeline-icon {
+            transform: scale(1.1);
+            background: var(--primary-color);
+        }
+
+        .timeline-step h4 {
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
         }
 
-        .result-score {
-            background: var(--success-color);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
+        .timeline-step p {
             font-size: 0.9rem;
-            display: inline-block;
+            opacity: 0.8;
         }
 
-        /* Statistics Section */
-        .stats-section {
+        /* Success Stories Section */
+        .success-stories-section {
             padding: 5rem 5%;
             background: var(--gradient);
             color: white;
-            text-align: center;
         }
 
-        .stats-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-card {
+        .story-grid {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
             padding: 2rem;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            display: grid;
+            gap: 3rem;
+        }
+        
+        .story-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+        .story-images {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        .stat-icon {
-            font-size: 2.5rem;
+        .story-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+
+        .story-image.after {
+            border-color: var(--secondary-color);
+        }
+
+        .story-content {
+            text-align: left;
+        }
+
+        .story-quote {
+            font-size: 1.1rem;
+            font-style: italic;
             margin-bottom: 1rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .story-quote::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.5rem;
             color: var(--secondary-color);
         }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
+        
         /* CTA Section */
         .final-cta-section {
             padding: 5rem 5%;
@@ -897,13 +883,13 @@
                 font-size: 2.5rem;
             }
 
-            .hero-stats {
-                flex-direction: column;
-                gap: 1rem;
+            .style-finder-app {
+                padding: 2rem;
             }
 
-            .style-finder-container {
+            .timeline {
                 grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 2rem;
             }
 
@@ -911,16 +897,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .demo-controls {
-                grid-template-columns: 1fr;
-            }
-
-            .result-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .timeline::before {
+                left: 30px;
+                top: 5%;
+                bottom: 5%;
+                width: 3px;
+                height: auto;
             }
 
             .cta-buttons {
@@ -930,9 +912,9 @@
 
             .hero-section,
             .style-finder-section,
-            .features-section,
-            .demo-section,
-            .stats-section,
+            .how-it-works-section,
+            .success-stories-section,
+            .features-section, 
             .final-cta-section {
                 padding: 3rem 3%;
             }
@@ -947,20 +929,12 @@
                 font-size: 2rem;
             }
 
-            .stats-grid {
+            .story-card {
                 grid-template-columns: 1fr;
-            }
-
-            .upload-section {
-                padding: 2rem;
-            }
-
-            .analysis-panel {
-                margin-top: 2rem;
+                text-align: center;
             }
         }
 
-        /* Loading Animation */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -1091,287 +1065,102 @@
 
     <!-- AI Style Finder Section -->
     <section class="style-finder-section" id="style-finder">
-        <h2 class="section-title">AI-Powered Style Analysis</h2>
-        <p class="section-subtitle">
-            Our cutting-edge artificial intelligence analyzes your facial features, skin tone,
-            and personal preferences to recommend the perfect hairstyles and beauty treatments.
-        </p>
-
-        <div class="style-finder-container">
-            <div class="upload-section" id="uploadSection">
-                <div class="upload-icon">
-                    <i class="fas fa-camera"></i>
+        <div class="style-finder-app" id="styleFinderApp">
+            <!-- State 1: Upload -->
+            <div class="app-state active" id="uploadState">
+                <div class="upload-area" onclick="triggerFileUpload()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Your Photo</h3>
+                    <p>Drag & drop or click to upload a clear, front-facing photo.</p>
+                    <span class="upload-btn">
+                        <i class="fas fa-camera"></i> Choose File
+                    </span>
                 </div>
-                <h3 class="upload-title">Upload Your Photo</h3>
-                <p class="upload-subtitle">
-                    Take or upload a clear photo of yourself for the most accurate AI analysis.
-                    Our system works best with front-facing photos in good lighting.
-                </p>
-                <button class="upload-button" onclick="uploadPhoto()">
-                    <i class="fas fa-upload"></i> Choose Photo
-                </button>
                 <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+            </div>
 
-                <div class="ai-processing" id="aiProcessing">
-                    <div class="processing-icon">
-                        <i class="fas fa-brain"></i>
+            <!-- State 2: Analyzing -->
+            <div class="app-state" id="analyzingState">
+                <div class="analyzing-view">
+                    <div class="image-preview-container">
+                        <img src="" alt="Your photo" id="imagePreview" class="image-preview">
+                        <div class="scan-line"></div>
                     </div>
-                    <div class="processing-text">AI Analyzing Your Photo...</div>
-                    <div class="processing-steps" id="processingSteps">
-                        Detecting facial features...
+                    <h3 class="analyzing-text">AI is analyzing your features...</h3>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" id="progressBar"></div>
                     </div>
+                    <p id="analysisStepText">Initializing AI model...</p>
                 </div>
             </div>
 
-            <div class="analysis-panel">
-                <div class="analysis-header">
-                    <h3 class="analysis-title">AI Analysis Process</h3>
-                    <p>See how our advanced AI works its magic</p>
+            <!-- State 3: Results -->
+            <div class="app-state" id="resultsState">
+                <h3>Your AI-Powered Style Recommendations</h3>
+                <p style="margin-bottom: 2rem; color: #666;">Based on our analysis, these styles would look amazing on you!</p>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Results will be injected here by JS -->
                 </div>
-                <div class="analysis-content">
-                    <div class="analysis-steps">
-                        <div class="analysis-step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h4>Face Detection & Mapping</h4>
-                                <p>AI identifies key facial landmarks and proportions</p>
-                            </div>
-                        </div>
-                        <div class="analysis-step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h4>Skin Tone Analysis</h4>
-                                <p>Advanced color analysis determines your undertones</p>
-                            </div>
-                        </div>
-                        <div class="analysis-step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h4>Feature Assessment</h4>
-                                <p>Analyzes face shape, eye color, and bone structure</p>
-                            </div>
-                        </div>
-                        <div class="analysis-step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <h4>Style Matching</h4>
-                                <p>Matches you with optimal hairstyles and treatments</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button class="cta-button" onclick="resetApp()">
+                    <i class="fas fa-redo"></i> Try Another Photo
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
-        <h2 class="section-title">Revolutionary AI Features</h2>
-        <p class="section-subtitle">
-            Experience the future of beauty discovery with our state-of-the-art artificial intelligence technology
-        </p>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <h3 class="feature-title">Facial Recognition AI</h3>
-                <p class="feature-description">
-                    Advanced computer vision technology analyzes over 100 facial points to understand
-                    your unique features and recommend styles that enhance your natural beauty.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <h3 class="feature-title">Color Analysis Engine</h3>
-                <p class="feature-description">
-                    Sophisticated color matching algorithms determine your skin undertones and
-                    recommend hair colors that perfectly complement your natural coloring.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-magic"></i>
-                </div>
-                <h3 class="feature-title">Virtual Try-On</h3>
-                <p class="feature-description">
-                    See how different hairstyles and colors look on you with our realistic
-                    AR-powered virtual try-on technology before making any commitments.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3 class="feature-title">Trend Analysis</h3>
-                <p class="feature-description">
-                    Stay ahead of beauty trends with AI that analyzes global style patterns
-                    and recommends trending looks that suit your personal style.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-user-cog"></i>
-                </div>
-                <h3 class="feature-title">Personalization AI</h3>
-                <p class="feature-description">
-                    Machine learning algorithms remember your preferences and continuously
-                    improve recommendations based on your feedback and style choices.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3 class="feature-title">Real-Time Processing</h3>
-                <p class="feature-description">
-                    Lightning-fast AI processing delivers instant results, allowing you to
-                    experiment with different styles and get recommendations in seconds.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Demo Section -->
-    <section class="demo-section">
-        <div class="demo-container">
-            <h2 class="section-title" style="color: white;">Try Our AI Demo</h2>
+    <!-- How It Works Section -->
+    <section class="how-it-works-section">
+        <div class="how-it-works-container">
+            <h2 class="section-title" style="color: white;">How It Works</h2>
             <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">
-                Experience the power of our AI StyleFinder with this interactive demonstration
+                Your journey to the perfect look in three simple steps.
             </p>
-
-            <div class="demo-interface">
-                <div class="demo-controls">
-                    <div class="control-group">
-                        <div class="control-label">
-                            <i class="fas fa-user"></i> Face Shape
-                        </div>
-                        <div class="control-options">
-                            <button class="control-option active"
-                                onclick="updateDemo('faceShape', 'oval')">Oval</button>
-                            <button class="control-option" onclick="updateDemo('faceShape', 'round')">Round</button>
-                            <button class="control-option" onclick="updateDemo('faceShape', 'square')">Square</button>
-                            <button class="control-option" onclick="updateDemo('faceShape', 'heart')">Heart</button>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <div class="control-label">
-                            <i class="fas fa-tint"></i> Hair Type
-                        </div>
-                        <div class="control-options">
-                            <button class="control-option active"
-                                onclick="updateDemo('hairType', 'straight')">Straight</button>
-                            <button class="control-option" onclick="updateDemo('hairType', 'wavy')">Wavy</button>
-                            <button class="control-option" onclick="updateDemo('hairType', 'curly')">Curly</button>
-                            <button class="control-option" onclick="updateDemo('hairType', 'coily')">Coily</button>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <div class="control-label">
-                            <i class="fas fa-sun"></i> Skin Tone
-                        </div>
-                        <div class="control-options">
-                            <button class="control-option active" onclick="updateDemo('skinTone', 'fair')">Fair</button>
-                            <button class="control-option" onclick="updateDemo('skinTone', 'medium')">Medium</button>
-                            <button class="control-option" onclick="updateDemo('skinTone', 'olive')">Olive</button>
-                            <button class="control-option" onclick="updateDemo('skinTone', 'deep')">Deep</button>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <div class="control-label">
-                            <i class="fas fa-star"></i> Style Preference
-                        </div>
-                        <div class="control-options">
-                            <button class="control-option active"
-                                onclick="updateDemo('style', 'classic')">Classic</button>
-                            <button class="control-option" onclick="updateDemo('style', 'trendy')">Trendy</button>
-                            <button class="control-option" onclick="updateDemo('style', 'edgy')">Edgy</button>
-                            <button class="control-option" onclick="updateDemo('style', 'natural')">Natural</button>
-                        </div>
-                    </div>
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-icon">1</div>
+                    <h4>Upload Photo</h4>
+                    <p>Choose a clear, front-facing photo of yourself.</p>
                 </div>
-
-                <div class="demo-result">
-                    <h3 style="text-align: center; margin-bottom: 2rem; color: var(--dark-color);">
-                        AI Recommendations
-                    </h3>
-                    <div class="result-grid" id="resultGrid">
-                        <div class="result-card">
-                            <div class="result-image">
-                                <i class="fas fa-cut"></i>
-                            </div>
-                            <div class="result-title">Layered Bob</div>
-                            <div class="result-score">95% Match</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-image">
-                                <i class="fas fa-palette"></i>
-                            </div>
-                            <div class="result-title">Warm Chocolate</div>
-                            <div class="result-score">92% Match</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-image">
-                                <i class="fas fa-magic"></i>
-                            </div>
-                            <div class="result-title">Beach Waves</div>
-                            <div class="result-score">89% Match</div>
-                        </div>
-                    </div>
+                <div class="timeline-step">
+                    <div class="timeline-icon">2</div>
+                    <h4>AI Analysis</h4>
+                    <p>Our AI analyzes your unique facial features in seconds.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-icon">3</div>
+                    <h4>Get Styles</h4>
+                    <p>Receive personalized hairstyle and color recommendations.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Statistics Section -->
-    <section class="stats-section">
-        <h2 class="section-title" style="color: white;">Proven Results</h2>
+    <!-- Success Stories Section -->
+    <section class="success-stories-section">
+        <h2 class="section-title" style="color: white;">Success Stories</h2>
         <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">
-            Our AI technology delivers exceptional accuracy and customer satisfaction
+            See how StyleFinder helped others find their perfect look.
         </p>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-brain"></i>
+        <div class="story-grid">
+            <div class="story-card">
+                <div class="story-images">
+                    <img src="images/user3.jpg" alt="Ananya G." class="story-image before">
                 </div>
-                <div class="stat-value">98.5%</div>
-                <div class="stat-label">AI Accuracy</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat-value">500K+</div>
-                <div class="stat-label">Users Served</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div class="stat-value">4.9/5</div>
-                <div class="stat-label">User Rating</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-value">
-                    < 3s</div>
-                        <div class="stat-label">Analysis Time</div>
+                <div class="story-content">
+                    <p class="story-quote">I was always scared to try a new hair color, but the AI StyleFinder gave me the confidence to go for it. I love my new look!</p>
+                    <h4>- Ananya G.</h4>
                 </div>
             </div>
+            <div class="story-card">
+                <div class="story-images">
+                    <img src="images/user4.jpg" alt="Naman M." class="story-image before">
+                </div>
+                <div class="story-content">
+                    <p class="story-quote">Never thought I could pull off a modern haircut. The AI showed me a few options that looked great, and my barber nailed it. Highly recommend!</p>
+                    <h4>- Naman M.</h4>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Final CTA Section -->
@@ -1476,12 +1265,6 @@
 
     <script>
         // Global variables
-        let currentDemo = {
-            faceShape: 'oval',
-            hairType: 'straight',
-            skinTone: 'fair',
-            style: 'classic'
-        };
 
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
@@ -1506,154 +1289,116 @@
         // Toggle mobile menu
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
-            const hamburger = document.getElementById('hamburger');
-
-            if (navLinks && hamburger) {
-                navLinks.classList.toggle('active');
-                hamburger.classList.toggle('active');
+            const hamburger = document.getElementById("hamburger");
+            if (navLinks) {
+                navLinks.classList.toggle("active");
+            }
+            if (hamburger) {
+                hamburger.classList.toggle("active");
             }
         }
 
         // Initialize photo upload functionality
         function initializePhotoUpload() {
+            const uploadArea = document.getElementById('uploadState');
             const photoUpload = document.getElementById('photoUpload');
 
-            if (photoUpload) {
-                photoUpload.addEventListener('change', function (e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        processPhoto(file);
-                    }
-                });
+            if (!uploadArea || !photoUpload) return;
+
+            photoUpload.addEventListener('change', (e) => handleFile(e.target.files[0]));
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handleFile(e.dataTransfer.files[0]);
+            });
+        }
+
+        function triggerFileUpload() {
+            document.getElementById('photoUpload').click();
+        }
+
+        function handleFile(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('imagePreview').src = e.target.result;
+                    startAnalysis();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please upload a valid image file.');
             }
         }
 
-        // Upload photo function
-        function uploadPhoto() {
-            const photoUpload = document.getElementById('photoUpload');
-            if (photoUpload) {
-                photoUpload.click();
-            }
+        function switchState(state) {
+            document.querySelectorAll('.app-state').forEach(s => s.classList.remove('active'));
+            document.getElementById(state + 'State').classList.add('active');
         }
 
-        // Process uploaded photo
-        function processPhoto(file) {
-            const aiProcessing = document.getElementById('aiProcessing');
-            const processingSteps = document.getElementById('processingSteps');
-
-            // Show processing animation
-            aiProcessing.style.display = 'block';
-
+        function startAnalysis() {
+            switchState('analyzing');
+            
+            const progressBar = document.getElementById('progressBar');
+            const stepText = document.getElementById('analysisStepText');
             const steps = [
-                'Detecting facial features...',
-                'Analyzing face shape...',
-                'Determining skin tone...',
-                'Mapping facial landmarks...',
-                'Processing hair characteristics...',
-                'Generating style recommendations...',
-                'Finalizing AI analysis...'
+                { text: 'Detecting facial features...', progress: 20 },
+                { text: 'Analyzing face shape & skin tone...', progress: 50 },
+                { text: 'Matching with 500K+ styles...', progress: 80 },
+                { text: 'Generating personalized recommendations...', progress: 100 }
             ];
-
             let currentStep = 0;
 
             const stepInterval = setInterval(() => {
                 if (currentStep < steps.length) {
-                    processingSteps.textContent = steps[currentStep];
+                    stepText.textContent = steps[currentStep].text;
+                    progressBar.style.width = steps[currentStep].progress + '%';
                     currentStep++;
                 } else {
                     clearInterval(stepInterval);
-                    showResults();
+                    setTimeout(showResults, 500);
                 }
-            }, 1000);
+            }, 1200);
         }
 
-        // Show AI analysis results
         function showResults() {
-            const aiProcessing = document.getElementById('aiProcessing');
-            const loadingOverlay = document.getElementById('loadingOverlay');
+            switchState('results');
+            const resultsGrid = document.getElementById('resultsGrid');
+            resultsGrid.innerHTML = ''; // Clear previous results
 
-            // Hide processing
-            aiProcessing.style.display = 'none';
+            const sampleResults = [
+                { title: 'Layered Bob', score: 95, image: 'images/salon1.jpeg' },
+                { title: 'Warm Balayage', score: 92, image: 'images/salon3.jpeg' },
+                { title: 'Beach Waves', score: 89, image: 'images/salon5.jpeg' }
+            ];
 
-            // Show loading overlay
-            loadingOverlay.style.display = 'flex';
-
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-
-                // Show results (in a real implementation, this would show actual AI results)
-                alert('🎉 AI Analysis Complete!\n\nBased on your photo, we recommend:\n\n✨ Layered Bob with Side Bangs\n🎨 Warm Caramel Highlights\n💫 Soft Beach Waves Styling\n\nCompatibility Score: 96%\n\nWould you like to book an appointment with a nearby salon?');
-
-                // Scroll to demo section
-                document.querySelector('.demo-section').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }, 3000);
-        }
-
-        // Update demo based on user selections
-        function updateDemo(category, value) {
-            // Update active button
-            const buttons = document.querySelectorAll(`[onclick*="${category}"]`);
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Update demo state
-            currentDemo[category] = value;
-
-            // Generate new recommendations
-            generateRecommendations();
-        }
-
-        // Generate AI recommendations based on demo inputs
-        function generateRecommendations() {
-            const resultGrid = document.getElementById('resultGrid');
-
-            // Sample recommendations based on inputs (in real implementation, this would use actual AI)
-            const recommendations = {
-                oval: {
-                    straight: ['Long Layers', 'Blunt Bob', 'Side Swept'],
-                    wavy: ['Beach Waves', 'Layered Lob', 'Textured Bob'],
-                    curly: ['Curly Shag', 'Defined Curls', 'Curly Bob'],
-                    coily: ['Natural Afro', 'Twist Out', 'Protective Style']
-                },
-                round: {
-                    straight: ['Long Straight', 'Asymmetrical Bob', 'Side Part'],
-                    wavy: ['Long Waves', 'Angled Lob', 'Voluminous Waves'],
-                    curly: ['Long Curls', 'Curly Layers', 'Defined Texture'],
-                    coily: ['High Top Fade', 'Braided Crown', 'Twist Updo']
-                },
-                square: {
-                    straight: ['Soft Layers', 'Long Bob', 'Face Framing'],
-                    wavy: ['Soft Waves', 'Textured Lob', 'Bouncy Curls'],
-                    curly: ['Layered Curls', 'Curly Fringe', 'Volume Curls'],
-                    coily: ['Curly Top', 'Defined Coils', 'Natural Volume']
-                },
-                heart: {
-                    straight: ['Chin Length', 'Blunt Cut', 'Full Bangs'],
-                    wavy: ['Wavy Bob', 'Textured Ends', 'Side Waves'],
-                    curly: ['Curly Bob', 'Spiral Curls', 'Bouncy Texture'],
-                    coily: ['Short Coils', 'Tapered Cut', 'Coily Bob']
-                }
-            };
-
-            const styles = recommendations[currentDemo.faceShape][currentDemo.hairType];
-            const scores = [95, 92, 89]; // Sample matching scores
-
-            resultGrid.innerHTML = '';
-
-            styles.forEach((style, index) => {
-                const resultCard = document.createElement('div');
-                resultCard.className = 'result-card';
-                resultCard.innerHTML = `
-                    <div class="result-image">
-                        <i class="fas fa-cut"></i>
-                    </div>
-                    <div class="result-title">${style}</div>
-                    <div class="result-score">${scores[index]}% Match</div>
+            sampleResults.forEach(result => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `
+                    <img src="${result.image}" alt="${result.title}">
+                    <h4>${result.title}</h4>
+                    <div class="result-score">${result.score}% Match</div>
+                    <button class="upload-btn" style="width:100%; font-size: 0.9rem;" onclick="findSalons()">Find Salons</button>
                 `;
-                resultGrid.appendChild(resultCard);
+                resultsGrid.appendChild(card);
             });
+        }
+
+        function findSalons() {
+            alert('Redirecting you to find salons that specialize in this style!');
+            window.location.href = 'Salon.html';
+        }
+
+        function resetApp() {
+            switchState('upload');
+            document.getElementById('photoUpload').value = '';
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('analysisStepText').textContent = 'Initializing AI model...';
         }
 
         // Animate elements on scroll
@@ -1673,12 +1418,12 @@
             }, observerOptions);
 
             // Observe elements for scroll animations
-            const animateElements = document.querySelectorAll('.feature-card, .stat-card, .analysis-step');
+            const animateElements = document.querySelectorAll('.feature-card, .timeline-step, .story-card');
             animateElements.forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.style.transition = 'all 0.6s ease';
-                observer.observe(el);
+                observer.observe(el); 
             });
         }
 
@@ -1705,22 +1450,6 @@
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
             }
-        });
-
-        // Add some interactive hover effects
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.addEventListener('mouseenter', function () {
-                this.querySelector('.feature-icon').style.transform = 'scale(1.1) rotate(5deg)';
-            });
-
-            card.addEventListener('mouseleave', function () {
-                this.querySelector('.feature-icon').style.transform = 'scale(1) rotate(0deg)';
-            });
-        });
-
-        // Initialize demo with default recommendations
-        window.addEventListener('load', function () {
-            generateRecommendations();
         });
     </script>
 </body>

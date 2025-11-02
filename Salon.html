@@ -3,11 +3,9 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Top-Rated Salons Near You | HairHub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <title>Premium Salons & Spas Near You | HairHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
     <style>
         * {
             margin: 0;
@@ -24,8 +22,9 @@
             --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-2: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
             --gradient-3: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --gradient-4: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
 
         body {
@@ -33,15 +32,47 @@
             line-height: 1.6;
             color: var(--dark-color);
             overflow-x: hidden;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        /* Header & Navigation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header */
         .header {
-            background: var(--gradient);
-            padding: 1rem 0;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            background: var(--gradient);
+            backdrop-filter: blur(15px);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header.scrolled nav a {
+            color: var(--dark-color);
+        }
+
+        .header.scrolled .logo-shine {
+            filter: brightness(1) invert(0);
+        }
+
+        .header.scrolled .hamburger span {
+            background: var(--dark-color);
         }
 
         nav {
@@ -49,20 +80,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 5%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            margin: 0 5%;
         }
 
         .logo-shine {
             height: 50px;
             filter: brightness(0) invert(1);
-            transition: transform 0.3s ease;
-        }
-
-        .logo-shine:hover {
-            transform: scale(1.1);
+            transition: all 0.3s ease;
         }
 
         .nav-links {
@@ -97,343 +120,253 @@
             flex-direction: column;
             cursor: pointer;
             gap: 4px;
+            z-index: 1001;
+            padding: 5px;
         }
 
         .hamburger span {
             width: 25px;
             height: 3px;
             background: white;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            transform-origin: center;
         }
 
-        /* Page Title Section */
-        .page-title {
-            background: var(--gradient);
-            padding: 4rem 5% 2rem;
+        .header.scrolled .hamburger span {
+            background: var(--dark-color);
+        }
+
+        /* Hamburger animation */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             color: white;
             position: relative;
             overflow: hidden;
+            padding: 100px 5% 50px;
         }
 
-        .page-title::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="0,0 1000,100 1000,0"/></svg>');
-            pointer-events: none;
+        .hero-content {
+            max-width: 1000px;
+            z-index: 2;
         }
 
-        .page-title h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a8edea 50%, #fed6e3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             animation: slideUp 1s ease forwards;
         }
 
-        .page-title p {
-            font-size: 1.2rem;
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
             opacity: 0.9;
             animation: slideUp 1s ease 0.3s forwards;
         }
 
-        /* Floating Elements */
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
+        .hero-search {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 3rem;
         }
 
-        .floating-icon {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.1);
-            font-size: 2rem;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-icon:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-icon:nth-child(2) {
-            top: 60%;
-            left: 80%;
-            animation-delay: 2s;
-        }
-
-        .floating-icon:nth-child(3) {
-            top: 40%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        .floating-icon:nth-child(4) {
-            top: 80%;
-            left: 70%;
-            animation-delay: 1s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        /* Filter Section */
-        .filter-section {
-            background: var(--light-color);
-            padding: 3rem 5%;
-            position: sticky;
-            top: 80px;
-            z-index: 999;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .filter-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .filter-row {
+        .search-row {
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 2rem;
+            justify-content: center;
         }
 
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .filter-label {
-            font-weight: 600;
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-
-        /* Creative Radio Buttons */
-        .radio-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .radio-option {
-            position: relative;
-        }
-
-        .radio-option input[type="radio"] {
-            display: none;
-        }
-
-        .radio-option label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: white;
-            border: 2px solid var(--accent-color);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(69, 183, 209, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .radio-option label::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-2);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .radio-option input[type="radio"]:checked+label::before {
-            left: 0;
-        }
-
-        .radio-option input[type="radio"]:checked+label {
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-        }
-
-        .radio-option label:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(69, 183, 209, 0.2);
-        }
-
-        /* Price Range Filter */
-        .price-filter {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .price-range {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .price-input {
-            width: 80px;
-            padding: 0.5rem;
-            border: 2px solid var(--accent-color);
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .price-input:focus {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(69, 183, 209, 0.3);
-        }
-
-        /* Location Filter */
-        .location-filter {
-            position: relative;
-        }
-
-        .location-select {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid var(--accent-color);
-            border-radius: 30px;
-            background: white;
+        .search-input {
+            flex: 1;
             min-width: 200px;
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background: var(--gradient-2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .location-select:hover {
+        .search-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.2);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
         }
 
-        /* Creative Stats Section */
+        /* Stats Section */
         .stats-section {
-            background: var(--gradient-3);
-            padding: 3rem 5%;
-            color: white;
-            text-align: center;
-        }
-
-        .stats-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
             margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
         .stat-item {
+            text-align: center;
+            padding: 1.5rem;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
             border-radius: 20px;
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            min-width: 150px;
         }
 
         .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
             margin-bottom: 0.5rem;
             background: var(--gradient-2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .stat-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        /* Filter Section */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 2rem 5%;
+            position: sticky;
+            top: 82px;
+            z-index: 999;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.3);
+        }
+
+        .sort-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 15px;
+            background: white;
+            outline: none;
+            font-weight: 500;
         }
 
         /* Salons Grid */
         .salons-section {
             padding: 4rem 5%;
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .salons-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .results-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .section-header {
+            text-align: center;
             margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .results-count {
             font-size: 1.1rem;
-            color: var(--dark-color);
-        }
-
-        .sort-options select {
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--accent-color);
-            border-radius: 20px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .sort-options select:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.2);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .salons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        /* Salon Card */
         .salon-card {
-            background: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             position: relative;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease forwards;
+            backdrop-filter: blur(20px);
         }
 
         .salon-card:hover {
@@ -441,101 +374,37 @@
             box-shadow: var(--hover-shadow);
         }
 
-        .salon-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-2);
-            z-index: 1;
-        }
-
-        /* Image Slider */
-        .salon-slider {
+        .salon-image-container {
             position: relative;
             height: 250px;
             overflow: hidden;
         }
 
-        .swiper {
-            width: 100%;
-            height: 100%;
-        }
-
-        .swiper-slide img {
+        .salon-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .salon-card:hover .swiper-slide img {
-            transform: scale(1.05);
-        }
-
-        .swiper-pagination-bullet {
-            background: var(--primary-color) !important;
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: var(--primary-color) !important;
-            background: rgba(255, 255, 255, 0.9);
-            width: 35px !important;
-            height: 35px !important;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .salon-card:hover .salon-image {
+            transform: scale(1.1);
         }
 
         .salon-badge {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--primary-color);
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-2);
             color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
-            z-index: 10;
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
-            }
-        }
-
-        .salon-rating {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 0.3rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Salon Info */
         .salon-info {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .salon-header {
@@ -546,314 +415,138 @@
         }
 
         .salon-name {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--dark-color);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .salon-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-weight: 600;
         }
 
         .salon-location {
             color: #666;
-            font-size: 0.9rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.3rem;
-        }
-
-        .salon-price {
-            background: var(--secondary-color);
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 15px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            gap: 0.5rem;
         }
 
         .salon-services {
-            margin: 1rem 0;
-        }
-
-        .services-list {
             display: flex;
             gap: 0.5rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .service-tag {
-            background: var(--light-color);
+            background: var(--gradient-4);
+            color: var(--dark-color);
             padding: 0.3rem 0.8rem;
             border-radius: 15px;
-            font-size: 0.8rem;
-            color: var(--dark-color);
-            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        .service-tag:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .salon-pricing {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 1rem;
-            border-radius: 15px;
-            margin: 1rem 0;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .pricing-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.2rem 0;
-        }
-
-        .salon-features {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            color: #666;
-            flex-wrap: wrap;
-        }
-
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(69, 183, 209, 0.1);
-            padding: 0.3rem 0.6rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .feature:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: scale(1.05);
+        .salon-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
         }
 
         .salon-actions {
             display: flex;
             gap: 1rem;
-            margin-top: 1.5rem;
         }
 
         .btn-primary {
+            flex: 1;
             background: var(--gradient-2);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
+            padding: 1rem;
+            border-radius: 15px;
             font-weight: 600;
-            flex: 1;
+            cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            padding: 1rem;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--accent-color);
-            border: 2px solid var(--accent-color);
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            flex: 1;
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
         }
 
         .btn-secondary:hover {
             background: var(--accent-color);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.3);
-        }
-
-        /* Special Offers Section */
-        .offers-section {
-            background: var(--gradient-2);
-            padding: 4rem 5%;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .offers-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .offers-section::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -5%;
-            width: 150px;
-            height: 150px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            animation: float 10s ease-in-out infinite reverse;
-        }
-
-        .offers-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .offers-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .offers-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-        }
-
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .offer-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .offer-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .offer-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .offer-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .offer-description {
-            opacity: 0.9;
-            line-height: 1.6;
         }
 
         /* Newsletter Section */
         .newsletter-section {
-            background: var(--dark-color);
+            background: var(--gradient);
             padding: 4rem 5%;
-            color: white;
             text-align: center;
+            color: white;
         }
 
-        .newsletter-container {
+        .newsletter-content {
             max-width: 600px;
             margin: 0 auto;
         }
 
         .newsletter-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-        }
-
-        .newsletter-subtitle {
-            margin-bottom: 2rem;
-            opacity: 0.8;
         }
 
         .newsletter-form {
             display: flex;
             gap: 1rem;
-            max-width: 400px;
-            margin: 0 auto;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .newsletter-input {
             flex: 1;
-            padding: 0.75rem 1rem;
+            min-width: 250px;
+            padding: 1rem;
             border: none;
-            border-radius: 25px;
-            outline: none;
+            border-radius: 15px;
             font-size: 1rem;
+            outline: none;
         }
 
         .newsletter-btn {
             background: var(--primary-color);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
+            padding: 1rem 2rem;
+            border-radius: 15px;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
-        }
-
-        .newsletter-btn:hover {
-            background: #ff5252;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
 
         /* Footer */
@@ -874,13 +567,6 @@
         .footer-section h3 {
             margin-bottom: 1rem;
             color: var(--secondary-color);
-            font-size: 1.2rem;
-        }
-
-        .footer-section p {
-            line-height: 1.6;
-            opacity: 0.8;
-            margin-bottom: 1rem;
         }
 
         .footer-links {
@@ -894,40 +580,11 @@
         .footer-links a {
             color: #bdc3c7;
             text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--secondary-color);
-            transform: translateX(5px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-link {
-            width: 45px;
-            height: 45px;
-            background: var(--secondary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            transform: translateY(-3px);
-            background: var(--primary-color);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
 
         .footer-bottom {
@@ -940,26 +597,24 @@
 
         /* Animations */
         @keyframes slideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
-        }
-
-        @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
 
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -994,132 +649,43 @@
                 right: 0;
             }
 
-            .page-title h1 {
+            .hero-title {
                 font-size: 2.5rem;
             }
 
-            .filter-row {
+            .search-row {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
             }
 
-            .radio-group {
-                justify-content: center;
+            .stats-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                gap: 1rem;
             }
 
             .salons-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .salon-actions {
-                flex-direction: column;
-            }
-
-            .results-header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .offers-grid {
                 grid-template-columns: 1fr;
             }
 
             .newsletter-form {
                 flex-direction: column;
-                max-width: 300px;
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            nav {
-                margin: 0 3%;
-                padding: 0 3%;
-            }
-
-            .salons-section,
-            .filter-section,
-            .stats-section,
-            .offers-section,
-            .newsletter-section {
-                padding: 2rem 3%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title h1 {
-                font-size: 2rem;
-            }
-
-            .salon-name {
-                font-size: 1.2rem;
-            }
-
-            .radio-option label {
-                padding: 0.5rem 1rem;
+            .filter-btn {
+                padding: 0.6rem 1rem; /* Reduced padding for mobile */
                 font-size: 0.9rem;
             }
-
-            .filter-section {
-                top: 70px;
-            }
-
-            .offers-title {
-                font-size: 2rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stat-number {
-                font-size: 2.5rem;
-            }
-        }
-
-        /* Animation delays for cards */
-        .salon-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .salon-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .salon-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .salon-card:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .salon-card:nth-child(5) {
-            animation-delay: 0.5s;
-        }
-
-        .salon-card:nth-child(6) {
-            animation-delay: 0.6s;
         }
     </style>
 </head>
 
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <nav>
             <a href="index.html">
                 <img src="images/logo web.png" class="logo-shine" alt="HairHub">
@@ -1135,7 +701,7 @@
                     <li><a href="Login.html"><i class="fas fa-user"></i> LOGIN</a></li>
                 </ul>
             </div>
-            <div class="hamburger" onclick="toggleMenu()">
+            <div class="hamburger" onclick="toggleMenu()" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -1143,40 +709,41 @@
         </nav>
     </header>
 
-    <!-- Page Title -->
-    <section class="page-title">
-        <div class="floating-elements">
-            <i class="fas fa-cut floating-icon"></i>
-            <i class="fas fa-spa floating-icon"></i>
-            <i class="fas fa-palette floating-icon"></i>
-            <i class="fas fa-star floating-icon"></i>
-        </div>
-        <h1>Premium Salons Near You</h1>
-        <p>Discover top-rated hair salons and beauty centers in your area with verified reviews and competitive pricing
-        </p>
-    </section>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-spa"></i>
+                <span>Premium Beauty & Wellness</span>
+            </div>
+            <h1 class="hero-title">Discover Amazing Salons & Spas</h1>
+            <p class="hero-subtitle">
+                Find and book appointments with top-rated beauty professionals in your area. 
+                Experience luxury treatments and exceptional service.
+            </p>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <h2>Trusted by Thousands</h2>
-            <p>Join our growing community of satisfied customers</p>
-            <div class="stats-grid">
+            <div class="hero-search">
+                <div class="search-row">
+                    <input type="text" class="search-input" placeholder="Search salons, spas, treatments..." id="searchInput">
+                    <input type="text" class="search-input" placeholder="Enter your location" id="locationInput">
+                    <button class="search-btn" onclick="performSearch()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-section">
                 <div class="stat-item">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-label">Partner Salons</div>
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Premium Salons</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">25K+</div>
-                    <div class="stat-label">Happy Customers</div>
+                    <span class="stat-number">50K+</span>
+                    <span class="stat-label">Happy Customers</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">4.8</div>
-                    <div class="stat-label">Average Rating</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Cities Covered</div>
+                    <span class="stat-number">4.8★</span>
+                    <span class="stat-label">Average Rating</span>
                 </div>
             </div>
         </div>
@@ -1185,661 +752,239 @@
     <!-- Filter Section -->
     <section class="filter-section">
         <div class="filter-container">
-            <div class="filter-row">
-                <!-- Service Type Filter -->
-                <div class="filter-group">
-                    <div class="filter-label">Service Type</div>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" id="all-services" name="serviceType" value="all" checked>
-                            <label for="all-services">
-                                <i class="fas fa-th"></i> All Services
-                            </label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="hair-cut" name="serviceType" value="haircut">
-                            <label for="hair-cut">
-                                <i class="fas fa-cut"></i> Hair Cut
-                            </label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="hair-color" name="serviceType" value="color">
-                            <label for="hair-color">
-                                <i class="fas fa-palette"></i> Hair Color
-                            </label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="styling" name="serviceType" value="styling">
-                            <label for="styling">
-                                <i class="fas fa-magic"></i> Styling
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Price Range Filter -->
-                <div class="filter-group">
-                    <div class="filter-label">Price Range</div>
-                    <div class="price-filter">
-                        <div class="price-range">
-                            <span>₹</span>
-                            <input type="number" class="price-input" placeholder="Min" id="minPrice">
-                            <span>-</span>
-                            <input type="number" class="price-input" placeholder="Max" id="maxPrice">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Location Filter -->
-                <div class="filter-group">
-                    <div class="filter-label">Location</div>
-                    <select class="location-select" id="locationFilter">
-                        <option value="">All Locations</option>
-                        <option value="gurugram">Gurugram</option>
-                        <option value="noida">Noida</option>
-                        <option value="delhi">Delhi</option>
-                        <option value="faridabad">Faridabad</option>
-                        <option value="ghaziabad">Ghaziabad</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Rating Filter -->
             <div class="filter-group">
-                <div class="filter-label">Minimum Rating</div>
-                <div class="radio-group">
-                    <div class="radio-option">
-                        <input type="radio" id="rating-all" name="rating" value="all" checked>
-                        <label for="rating-all">Any Rating</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" id="rating-3" name="rating" value="3">
-                        <label for="rating-3">3+ ⭐</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" id="rating-4" name="rating" value="4">
-                        <label for="rating-4">4+ ⭐</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" id="rating-45" name="rating" value="4.5">
-                        <label for="rating-45">4.5+ ⭐</label>
-                    </div>
-                </div>
+                <button class="filter-btn active" onclick="filterSalons('all')">All</button>
+                <button class="filter-btn" onclick="filterSalons('salon')">Hair Salons</button>
+                <button class="filter-btn" onclick="filterSalons('spa')">Spas</button>
+                <button class="filter-btn" onclick="filterSalons('beauty')">Beauty</button>
+                <button class="filter-btn" onclick="filterSalons('massage')">Massage</button>
+            </div>
+            <div class="filter-group">
+                <select class="sort-select" id="sortBy">
+                    <option value="featured">Featured</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
             </div>
         </div>
     </section>
 
     <!-- Salons Section -->
     <section class="salons-section">
-        <div class="salons-container">
-            <div class="results-header">
-                <div class="results-count">Showing <strong>24 salons</strong> near you</div>
-                <div class="sort-options">
-                    <select id="sortBy">
-                        <option value="relevance">Sort by Relevance</option>
-                        <option value="rating">Highest Rated</option>
-                        <option value="price-low">Price: Low to High</option>
-                        <option value="price-high">Price: High to Low</option>
-                        <option value="distance">Nearest First</option>
-                    </select>
-                </div>
-            </div>
+        <div class="section-header">
+            <h2 class="section-title">Premium Salons & Spas</h2>
+            <p class="results-count">Showing <strong>12 salons</strong> near you</p>
+        </div>
 
-            <div class="salons-grid" id="salonsGrid">
-                <!-- Salon Card 1 -->
-                <div class="salon-card" data-type="haircut" data-rating="4.8" data-price="2000">
-                    <div class="salon-slider">
-                        <div class="swiper salon-swiper-1">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/images/salon1.jpeg" alt="XO Studio Interior">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon1-2.jpg" alt="XO Studio Services">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon1-3.jpg" alt="XO Studio Team">
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+        <div class="salons-grid" id="salonsGrid">
+            <!-- Salon Card 1 -->
+            <div class="salon-card" data-type="salon" data-rating="4.8" data-price="2500">
+                <div class="salon-image-container">
+                    <img src="images/salon1.jpeg" alt="Luxe Hair Studio" class="salon-image">
+                    <div class="salon-badge">Premium</div>
+                </div>
+                <div class="salon-info">
+                    <div class="salon-header">
+                        <div>
+                            <h3 class="salon-name">Luxe Hair Studio</h3>
+                            <p class="salon-location">
+                                <i class="fas fa-map-marker-alt"></i> Sector 54, Gurugram
+                            </p>
                         </div>
-                        <div class="salon-badge">Premium</div>
                         <div class="salon-rating">
                             <i class="fas fa-star"></i> 4.8
                         </div>
                     </div>
-                    <div class="salon-info">
-                        <div class="salon-header">
-                            <div>
-                                <h3 class="salon-name">XO Studio</h3>
-                                <p class="salon-location">
-                                    <i class="fas fa-map-marker-alt"></i> Sec 54 Gurugram • 2.5 km
-                                </p>
-                            </div>
-                            <div class="salon-price">₹800+</div>
-                        </div>
-
-                        <div class="salon-services">
-                            <div class="services-list">
-                                <span class="service-tag">Hair Cut</span>
-                                <span class="service-tag">Hair Color</span>
-                                <span class="service-tag">Styling</span>
-                                <span class="service-tag">Beard Trim</span>
-                            </div>
-                        </div>
-
-                        <div class="salon-pricing">
-                            <div class="pricing-title">Popular Services</div>
-                            <div class="pricing-grid">
-                                <div class="price-item">
-                                    <span>Hair Cut</span>
-                                    <span>₹800</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Hair Wash</span>
-                                    <span>₹400</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Hair Color</span>
-                                    <span>₹2000</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Beard Trim</span>
-                                    <span>₹300</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="salon-features">
-                            <div class="feature">
-                                <i class="fas fa-wifi"></i> Free WiFi
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-parking"></i> Parking
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-credit-card"></i> Card Payment
-                            </div>
-                        </div>
-
-                        <div class="salon-actions">
-                            <button class="btn-primary" onclick="bookSalon('XO Studio')">
-                                <i class="fas fa-calendar-check"></i> Book Now
-                            </button>
-                            <button class="btn-secondary" onclick="viewDetails('XO Studio')">
-                                <i class="fas fa-info-circle"></i> Details
-                            </button>
-                        </div>
+                    <div class="salon-services">
+                        <span class="service-tag">Hair Cut</span>
+                        <span class="service-tag">Hair Color</span>
+                        <span class="service-tag">Styling</span>
+                    </div>
+                    <div class="salon-price">Starting from ₹2,500</div>
+                    <div class="salon-actions">
+                        <button class="btn-primary" onclick="bookSalon('Luxe Hair Studio')">
+                            <i class="fas fa-calendar-check"></i> Book Now
+                        </button>
+                        <button class="btn-secondary" onclick="viewDetails('Luxe Hair Studio')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Salon Card 2 -->
-                <div class="salon-card" data-type="color" data-rating="4.6" data-price="1500">
-                    <div class="salon-slider">
-                        <div class="swiper salon-swiper-2">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/images/salon2.jpg" alt="Myra Salon Interior">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon2-2.jpg" alt="Myra Salon Services">
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                        <div class="salon-badge">Top Rated</div>
-                        <div class="salon-rating">
-                            <i class="fas fa-star"></i> 4.6
-                        </div>
-                    </div>
-                    <div class="salon-info">
-                        <div class="salon-header">
-                            <div>
-                                <h3 class="salon-name">Myra Salon</h3>
-                                <p class="salon-location">
-                                    <i class="fas fa-map-marker-alt"></i> Sec 120 Noida • 3.2 km
-                                </p>
-                            </div>
-                            <div class="salon-price">₹600+</div>
-                        </div>
-
-                        <div class="salon-services">
-                            <div class="services-list">
-                                <span class="service-tag">Women's Cut</span>
-                                <span class="service-tag">Hair Color</span>
-                                <span class="service-tag">Highlights</span>
-                                <span class="service-tag">Bridal</span>
-                            </div>
-                        </div>
-
-                        <div class="salon-pricing">
-                            <div class="pricing-title">Popular Services</div>
-                            <div class="pricing-grid">
-                                <div class="price-item">
-                                    <span>Women's Cut</span>
-                                    <span>₹600</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Blow Dry</span>
-                                    <span>₹800</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Hair Color</span>
-                                    <span>₹1500</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Highlights</span>
-                                    <span>₹2500</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="salon-features">
-                            <div class="feature">
-                                <i class="fas fa-female"></i> Women's Only
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-coffee"></i> Refreshments
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-shield-alt"></i> Sanitized
-                            </div>
-                        </div>
-
-                        <div class="salon-actions">
-                            <button class="btn-primary" onclick="bookSalon('Myra Salon')">
-                                <i class="fas fa-calendar-check"></i> Book Now
-                            </button>
-                            <button class="btn-secondary" onclick="viewDetails('Myra Salon')">
-                                <i class="fas fa-info-circle"></i> Details
-                            </button>
-                        </div>
-                    </div>
+            <!-- Salon Card 2 -->
+            <div class="salon-card" data-type="spa" data-rating="4.9" data-price="3500">
+                <div class="salon-image-container">
+                    <img src="images/salon2.jpg" alt="Serenity Spa" class="salon-image">
+                    <div class="salon-badge">Top Rated</div>
                 </div>
-
-                <!-- Salon Card 3 -->
-                <div class="salon-card" data-type="styling" data-rating="4.9" data-price="1200">
-                    <div class="salon-slider">
-                        <div class="swiper salon-swiper-3">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/images/salon3.jpeg" alt="Glamour Salon Interior">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon3-2.jpg" alt="Glamour Salon Work">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon3-3.jpg" alt="Glamour Salon Products">
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+                <div class="salon-info">
+                    <div class="salon-header">
+                        <div>
+                            <h3 class="salon-name">Serenity Spa</h3>
+                            <p class="salon-location">
+                                <i class="fas fa-map-marker-alt"></i> Sector 120, Noida
+                            </p>
                         </div>
-                        <div class="salon-badge">Luxury</div>
                         <div class="salon-rating">
                             <i class="fas fa-star"></i> 4.9
                         </div>
                     </div>
-                    <div class="salon-info">
-                        <div class="salon-header">
-                            <div>
-                                <h3 class="salon-name">Glamour Salon</h3>
-                                <p class="salon-location">
-                                    <i class="fas fa-map-marker-alt"></i> Sec 17 Faridabad • 1.8 km
-                                </p>
-                            </div>
-                            <div class="salon-price">₹700+</div>
-                        </div>
-
-                        <div class="salon-services">
-                            <div class="services-list">
-                                <span class="service-tag">Premium Cut</span>
-                                <span class="service-tag">Keratin</span>
-                                <span class="service-tag">Styling</span>
-                                <span class="service-tag">Facial</span>
-                            </div>
-                        </div>
-
-                        <div class="salon-pricing">
-                            <div class="pricing-title">Popular Services</div>
-                            <div class="pricing-grid">
-                                <div class="price-item">
-                                    <span>Premium Cut</span>
-                                    <span>₹700</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Keratin</span>
-                                    <span>₹3500</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Hair Spa</span>
-                                    <span>₹1200</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Facial</span>
-                                    <span>₹800</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="salon-features">
-                            <div class="feature">
-                                <i class="fas fa-award"></i> Award Winner
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-user-tie"></i> Expert Staff
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-spa"></i> Luxury Experience
-                            </div>
-                        </div>
-
-                        <div class="salon-actions">
-                            <button class="btn-primary" onclick="bookSalon('Glamour Salon')">
-                                <i class="fas fa-calendar-check"></i> Book Now
-                            </button>
-                            <button class="btn-secondary" onclick="viewDetails('Glamour Salon')">
-                                <i class="fas fa-info-circle"></i> Details
-                            </button>
-                        </div>
+                    <div class="salon-services">
+                        <span class="service-tag">Full Body Massage</span>
+                        <span class="service-tag">Facial</span>
+                        <span class="service-tag">Aromatherapy</span>
+                    </div>
+                    <div class="salon-price">Starting from ₹3,500</div>
+                    <div class="salon-actions">
+                        <button class="btn-primary" onclick="bookSalon('Serenity Spa')">
+                            <i class="fas fa-calendar-check"></i> Book Now
+                        </button>
+                        <button class="btn-secondary" onclick="viewDetails('Serenity Spa')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Salon Card 4 -->
-                <div class="salon-card" data-type="haircut" data-rating="4.3" data-price="900">
-                    <div class="salon-slider">
-                        <div class="swiper salon-swiper-4">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/images/salon4.jpeg" alt="Diago Salon Interior">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon4-2.jpg" alt="Diago Salon Services">
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                        <div class="salon-badge">Popular</div>
-                        <div class="salon-rating">
-                            <i class="fas fa-star"></i> 4.3
-                        </div>
-                    </div>
-                    <div class="salon-info">
-                        <div class="salon-header">
-                            <div>
-                                <h3 class="salon-name">Diago Salon</h3>
-                                <p class="salon-location">
-                                    <i class="fas fa-map-marker-alt"></i> Sec 14 Rohini West • 4.1 km
-                                </p>
-                            </div>
-                            <div class="salon-price">₹500+</div>
-                        </div>
-
-                        <div class="salon-services">
-                            <div class="services-list">
-                                <span class="service-tag">Men's Cut</span>
-                                <span class="service-tag">Shave</span>
-                                <span class="service-tag">Hair Wash</span>
-                                <span class="service-tag">Massage</span>
-                            </div>
-                        </div>
-
-                        <div class="salon-pricing">
-                            <div class="pricing-title">Popular Services</div>
-                            <div class="pricing-grid">
-                                <div class="price-item">
-                                    <span>Men's Cut</span>
-                                    <span>₹500</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Beard Trim</span>
-                                    <span>₹200</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Head Massage</span>
-                                    <span>₹300</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Face Clean</span>
-                                    <span>₹400</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="salon-features">
-                            <div class="feature">
-                                <i class="fas fa-male"></i> Men's Specialist
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-clock"></i> Quick Service
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-tag"></i> Affordable
-                            </div>
-                        </div>
-
-                        <div class="salon-actions">
-                            <button class="btn-primary" onclick="bookSalon('Diago Salon')">
-                                <i class="fas fa-calendar-check"></i> Book Now
-                            </button>
-                            <button class="btn-secondary" onclick="viewDetails('Diago Salon')">
-                                <i class="fas fa-info-circle"></i> Details
-                            </button>
-                        </div>
-                    </div>
+            <!-- Salon Card 3 -->
+            <div class="salon-card" data-type="beauty" data-rating="4.7" data-price="1800">
+                <div class="salon-image-container">
+                    <img src="images/salon3.jpeg" alt="Glamour Beauty" class="salon-image">
+                    <div class="salon-badge">Popular</div>
                 </div>
-
-                <!-- Salon Card 5 -->
-                <div class="salon-card" data-type="styling" data-rating="4.7" data-price="1800">
-                    <div class="salon-slider">
-                        <div class="swiper salon-swiper-5">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/images/salon5.jpeg" alt="Antheia Makeovers Interior">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon5-2.jpg" alt="Antheia Makeovers Work">
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+                <div class="salon-info">
+                    <div class="salon-header">
+                        <div>
+                            <h3 class="salon-name">Glamour Beauty</h3>
+                            <p class="salon-location">
+                                <i class="fas fa-map-marker-alt"></i> Sector 17, Faridabad
+                            </p>
                         </div>
-                        <div class="salon-badge">Bridal Expert</div>
                         <div class="salon-rating">
                             <i class="fas fa-star"></i> 4.7
                         </div>
                     </div>
-                    <div class="salon-info">
-                        <div class="salon-header">
-                            <div>
-                                <h3 class="salon-name">Antheia Makeovers</h3>
-                                <p class="salon-location">
-                                    <i class="fas fa-map-marker-alt"></i> Sec 15 Dwarka • 5.3 km
-                                </p>
-                            </div>
-                            <div class="salon-price">₹1000+</div>
-                        </div>
-
-                        <div class="salon-services">
-                            <div class="services-list">
-                                <span class="service-tag">Bridal Makeup</span>
-                                <span class="service-tag">Party Look</span>
-                                <span class="service-tag">Hair Styling</span>
-                                <span class="service-tag">Mehendi</span>
-                            </div>
-                        </div>
-
-                        <div class="salon-pricing">
-                            <div class="pricing-title">Popular Services</div>
-                            <div class="pricing-grid">
-                                <div class="price-item">
-                                    <span>Party Makeup</span>
-                                    <span>₹1000</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Hair Styling</span>
-                                    <span>₹800</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Bridal Package</span>
-                                    <span>₹15000</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Pre-Bridal</span>
-                                    <span>₹8000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="salon-features">
-                            <div class="feature">
-                                <i class="fas fa-heart"></i> Bridal Expert
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-home"></i> Home Service
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-camera"></i> Photo Ready
-                            </div>
-                        </div>
-
-                        <div class="salon-actions">
-                            <button class="btn-primary" onclick="bookSalon('Antheia Makeovers')">
-                                <i class="fas fa-calendar-check"></i> Book Now
-                            </button>
-                            <button class="btn-secondary" onclick="viewDetails('Antheia Makeovers')">
-                                <i class="fas fa-info-circle"></i> Details
-                            </button>
-                        </div>
+                    <div class="salon-services">
+                        <span class="service-tag">Makeup</span>
+                        <span class="service-tag">Eyebrow Threading</span>
+                        <span class="service-tag">Manicure</span>
                     </div>
-                </div>
-
-                <!-- Salon Card 6 -->
-                <div class="salon-card" data-type="color" data-rating="4.4" data-price="1100">
-                    <div class="salon-slider">
-                        <div class="swiper salon-swiper-6">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/images/salon6.jpg" alt="La Martina Interior">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/images/salon6-2.jpg" alt="La Martina Services">
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                        <div class="salon-badge">Unisex</div>
-                        <div class="salon-rating">
-                            <i class="fas fa-star"></i> 4.4
-                        </div>
-                    </div>
-                    <div class="salon-info">
-                        <div class="salon-header">
-                            <div>
-                                <h3 class="salon-name">La Martina</h3>
-                                <p class="salon-location">
-                                    <i class="fas fa-map-marker-alt"></i> Palam • 6.2 km
-                                </p>
-                            </div>
-                            <div class="salon-price">₹650+</div>
-                        </div>
-
-                        <div class="salon-services">
-                            <div class="services-list">
-                                <span class="service-tag">Unisex Cut</span>
-                                <span class="service-tag">Hair Color</span>
-                                <span class="service-tag">Smoothening</span>
-                                <span class="service-tag">Waxing</span>
-                            </div>
-                        </div>
-
-                        <div class="salon-pricing">
-                            <div class="pricing-title">Popular Services</div>
-                            <div class="pricing-grid">
-                                <div class="price-item">
-                                    <span>Unisex Cut</span>
-                                    <span>₹650</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Hair Wash</span>
-                                    <span>₹350</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Smoothening</span>
-                                    <span>₹2800</span>
-                                </div>
-                                <div class="price-item">
-                                    <span>Full Body Wax</span>
-                                    <span>₹1500</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="salon-features">
-                            <div class="feature">
-                                <i class="fas fa-users"></i> Unisex
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-leaf"></i> Organic Products
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-clock"></i> Extended Hours
-                            </div>
-                        </div>
-
-                        <div class="salon-actions">
-                            <button class="btn-primary" onclick="bookSalon('La Martina')">
-                                <i class="fas fa-calendar-check"></i> Book Now
-                            </button>
-                            <button class="btn-secondary" onclick="viewDetails('La Martina')">
-                                <i class="fas fa-info-circle"></i> Details
-                            </button>
-                        </div>
+                    <div class="salon-price">Starting from ₹1,800</div>
+                    <div class="salon-actions">
+                        <button class="btn-primary" onclick="bookSalon('Glamour Beauty')">
+                            <i class="fas fa-calendar-check"></i> Book Now
+                        </button>
+                        <button class="btn-secondary" onclick="viewDetails('Glamour Beauty')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Special Offers Section -->
-    <section class="offers-section">
-        <div class="offers-container">
-            <h2 class="offers-title">Special Offers Just for You</h2>
-            <p class="offers-subtitle">Don't miss out on these amazing deals from our partner salons</p>
-            <div class="offers-grid">
-                <div class="offer-card">
-                    <div class="offer-icon">
-                        <i class="fas fa-percentage"></i>
-                    </div>
-                    <h3 class="offer-title">First Visit Discount</h3>
-                    <p class="offer-description">Get 20% off on your first booking with any of our premium partner
-                        salons. Valid for new customers only.</p>
+            <!-- Salon Card 4 -->
+            <div class="salon-card" data-type="salon" data-rating="4.6" data-price="2200">
+                <div class="salon-image-container">
+                    <img src="images/salon4.jpeg" alt="Elite Salon" class="salon-image">
+                    <div class="salon-badge">New</div>
                 </div>
-                <div class="offer-card">
-                    <div class="offer-icon">
-                        <i class="fas fa-gift"></i>
+                <div class="salon-info">
+                    <div class="salon-header">
+                        <div>
+                            <h3 class="salon-name">Elite Salon</h3>
+                            <p class="salon-location">
+                                <i class="fas fa-map-marker-alt"></i> Rohini West, Delhi
+                            </p>
+                        </div>
+                        <div class="salon-rating">
+                            <i class="fas fa-star"></i> 4.6
+                        </div>
                     </div>
-                    <h3 class="offer-title">Combo Packages</h3>
-                    <p class="offer-description">Save up to 30% when you book multiple services together. Perfect for a
-                        complete makeover experience.</p>
+                    <div class="salon-services">
+                        <span class="service-tag">Hair Treatment</span>
+                        <span class="service-tag">Beard Styling</span>
+                        <span class="service-tag">Hair Wash</span>
+                    </div>
+                    <div class="salon-price">Starting from ₹2,200</div>
+                    <div class="salon-actions">
+                        <button class="btn-primary" onclick="bookSalon('Elite Salon')">
+                            <i class="fas fa-calendar-check"></i> Book Now
+                        </button>
+                        <button class="btn-secondary" onclick="viewDetails('Elite Salon')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </div>
                 </div>
-                <div class="offer-card">
-                    <div class="offer-icon">
-                        <i class="fas fa-crown"></i>
+            </div>
+
+            <!-- Salon Card 5 -->
+            <div class="salon-card" data-type="massage" data-rating="4.8" data-price="2800">
+                <div class="salon-image-container">
+                    <img src="images/salon5.jpeg" alt="Bliss Massage Center" class="salon-image">
+                    <div class="salon-badge">Certified</div>
+                </div>
+                <div class="salon-info">
+                    <div class="salon-header">
+                        <div>
+                            <h3 class="salon-name">Bliss Massage Center</h3>
+                            <p class="salon-location">
+                                <i class="fas fa-map-marker-alt"></i> Dwarka, Delhi
+                            </p>
+                        </div>
+                        <div class="salon-rating">
+                            <i class="fas fa-star"></i> 4.8
+                        </div>
                     </div>
-                    <h3 class="offer-title">VIP Membership</h3>
-                    <p class="offer-description">Join our VIP program and get exclusive discounts, priority booking, and
-                        special perks at all partner salons.</p>
+                    <div class="salon-services">
+                        <span class="service-tag">Deep Tissue</span>
+                        <span class="service-tag">Swedish Massage</span>
+                        <span class="service-tag">Hot Stone</span>
+                    </div>
+                    <div class="salon-price">Starting from ₹2,800</div>
+                    <div class="salon-actions">
+                        <button class="btn-primary" onclick="bookSalon('Bliss Massage Center')">
+                            <i class="fas fa-calendar-check"></i> Book Now
+                        </button>
+                        <button class="btn-secondary" onclick="viewDetails('Bliss Massage Center')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salon Card 6 -->
+            <div class="salon-card" data-type="spa" data-rating="4.9" data-price="4200">
+                <div class="salon-image-container">
+                    <img src="images/salon6.jpg" alt="Royal Wellness Spa" class="salon-image">
+                    <div class="salon-badge">Luxury</div>
+                </div>
+                <div class="salon-info">
+                    <div class="salon-header">
+                        <div>
+                            <h3 class="salon-name">Royal Wellness Spa</h3>
+                            <p class="salon-location">
+                                <i class="fas fa-map-marker-alt"></i> Palam, Delhi
+                            </p>
+                        </div>
+                        <div class="salon-rating">
+                            <i class="fas fa-star"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="salon-services">
+                        <span class="service-tag">Couples Massage</span>
+                        <span class="service-tag">Body Wrap</span>
+                        <span class="service-tag">Hydrotherapy</span>
+                    </div>
+                    <div class="salon-price">Starting from ₹4,200</div>
+                    <div class="salon-actions">
+                        <button class="btn-primary" onclick="bookSalon('Royal Wellness Spa')">
+                            <i class="fas fa-calendar-check"></i> Book Now
+                        </button>
+                        <button class="btn-secondary" onclick="viewDetails('Royal Wellness Spa')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1847,10 +992,9 @@
 
     <!-- Newsletter Section -->
     <section class="newsletter-section">
-        <div class="newsletter-container">
+        <div class="newsletter-content">
             <h2 class="newsletter-title">Stay Updated</h2>
-            <p class="newsletter-subtitle">Subscribe to get the latest offers, new salon partners, and beauty tips
-                delivered to your inbox</p>
+            <p>Get exclusive offers, beauty tips, and early access to new salons in your area.</p>
             <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
                 <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
                 <button type="submit" class="newsletter-btn">
@@ -1863,156 +1007,67 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <!-- Company Info -->
             <div class="footer-section">
-                <div class="footer-logo">
-                    <img src="images/logo web.png" alt="HairHub"
-                        style="height: 40px; filter: brightness(0) invert(1); margin-bottom: 1rem;">
-                </div>
-                <p>HairHub is your trusted platform for discovering and booking premium beauty and wellness services. We
-                    connect you with top-rated professionals in your area.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
+                <img src="images/logo web.png" alt="HairHub" style="height: 40px; filter: brightness(0) invert(1); margin-bottom: 1rem;">
+                <p>HairHub connects you with the best beauty professionals and offers premium salon and spa experiences.</p>
             </div>
-
-            <!-- Quick Links -->
             <div class="footer-section">
-                <h3><i class="fas fa-link"></i> Quick Links</h3>
+                <h3>Quick Links</h3>
                 <ul class="footer-links">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="Salon.html"><i class="fas fa-spa"></i> Salon & Spa</a></li>
-                    <li><a href="Services.html"><i class="fas fa-cut"></i> Services</a></li>
-                    <li><a href="List Your Business.html"><i class="fas fa-store"></i> List Your Business</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
-                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="StyleFinder.html">StyleFinder</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
-
-            <!-- Services -->
             <div class="footer-section">
-                <h3><i class="fas fa-scissors"></i> Popular Services</h3>
+                <h3>Services</h3>
                 <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-male"></i> Men's Haircut</a></li>
-                    <li><a href="#"><i class="fas fa-female"></i> Women's Styling</a></li>
-                    <li><a href="#"><i class="fas fa-hands"></i> Massage Therapy</a></li>
-                    <li><a href="#"><i class="fas fa-palette"></i> Hair Coloring</a></li>
-                    <li><a href="#"><i class="fas fa-magic"></i> Bridal Makeup</a></li>
-                    <li><a href="#"><i class="fas fa-leaf"></i> Organic Treatments</a></li>
+                    <li><a href="#">Hair Salons</a></li>
+                    <li><a href="#">Spa & Wellness</a></li>
+                    <li><a href="#">Beauty Treatments</a></li>
+                    <li><a href="#">Massage Therapy</a></li>
                 </ul>
             </div>
-
-            <!-- Support & Contact -->
             <div class="footer-section">
-                <h3><i class="fas fa-headset"></i> Support & Contact</h3>
+                <h3>Support</h3>
                 <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
-                    <li><a href="#"><i class="fas fa-file-contract"></i> Booking Policy</a></li>
-                    <li><a href="#"><i class="fas fa-times-circle"></i> Cancellation</a></li>
-                    <li><a href="#"><i class="fas fa-shield-alt"></i> Safety Guidelines</a></li>
-                    <li><a href="#"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> support@hairhub.com</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Booking Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <p>&copy; 2025 HairHub. All rights reserved. Made with <i class="fas fa-heart"
-                    style="color: var(--primary-color);"></i> for beauty enthusiasts worldwide.</p>
+            <p>&copy; 2025 HairHub. All rights reserved. Made with ❤️ for beauty enthusiasts.</p>
         </div>
     </footer>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-    <!-- JavaScript -->
     <script>
-        // Initialize Swiper for each salon card
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize all sliders
-            for (let i = 1; i <= 6; i++) {
-                new Swiper(`.salon-swiper-${i}`, {
-                    loop: true,
-                    pagination: {
-                        el: `.salon-swiper-${i} .swiper-pagination`,
-                        clickable: true,
-                    },
-                    navigation: {
-                        nextEl: `.salon-swiper-${i} .swiper-button-next`,
-                        prevEl: `.salon-swiper-${i} .swiper-button-prev`,
-                    },
-                    autoplay: {
-                        delay: 4000,
-                        disableOnInteraction: false,
-                    },
-                    effect: 'fade',
-                    fadeEffect: {
-                        crossFade: true
-                    }
-                });
-            }
-        });
-
         // Toggle mobile menu
         function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            const navLinks = document.getElementById("navLinks");
+            const hamburger = document.getElementById("hamburger");
+            if (navLinks && hamburger) {
+                navLinks.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            }
         }
 
-        // Filter functionality
-        function filterSalons() {
-            const serviceType = document.querySelector('input[name="serviceType"]:checked').value;
-            const rating = document.querySelector('input[name="rating"]:checked').value;
-            const location = document.getElementById('locationFilter').value;
-            const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
-            const maxPrice = parseInt(document.getElementById('maxPrice').value) || 10000;
-
-            const salonCards = document.querySelectorAll('.salon-card');
+        // Filter salons
+        function filterSalons(type) {
+            const cards = document.querySelectorAll('.salon-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter cards
             let visibleCount = 0;
-
-            salonCards.forEach(card => {
-                const cardType = card.dataset.type;
-                const cardRating = parseFloat(card.dataset.rating);
-                const cardPrice = parseInt(card.dataset.price);
-                const cardLocation = card.querySelector('.salon-location').textContent.toLowerCase();
-
-                let show = true;
-
-                // Service type filter
-                if (serviceType !== 'all' && cardType !== serviceType) {
-                    show = false;
-                }
-
-                // Rating filter
-                if (rating !== 'all' && cardRating < parseFloat(rating)) {
-                    show = false;
-                }
-
-                // Location filter
-                if (location && !cardLocation.includes(location)) {
-                    show = false;
-                }
-
-                // Price filter
-                if (cardPrice < minPrice || cardPrice > maxPrice) {
-                    show = false;
-                }
-
-                if (show) {
+            cards.forEach(card => {
+                if (type === 'all' || card.dataset.type === type) {
                     card.style.display = 'block';
                     card.style.animation = 'fadeInUp 0.6s ease forwards';
                     visibleCount++;
@@ -2020,22 +1075,75 @@
                     card.style.display = 'none';
                 }
             });
-
-            // Update results count
+            
+            // Update count
             document.querySelector('.results-count').innerHTML = `Showing <strong>${visibleCount} salons</strong> near you`;
         }
 
-        // Add event listeners to filters
-        document.addEventListener('DOMContentLoaded', function () {
-            const filters = document.querySelectorAll('input[name="serviceType"], input[name="rating"], #locationFilter, #minPrice, #maxPrice');
-            filters.forEach(filter => {
-                filter.addEventListener('change', filterSalons);
-                filter.addEventListener('input', filterSalons);
-            });
+        // Search functionality
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const location = document.getElementById('locationInput').value.toLowerCase();
+            
+            if (searchTerm || location) {
+                alert(`Searching for: ${searchTerm || 'All services'} in ${location || 'Current location'}`);
+            } else {
+                alert('Please enter search criteria');
+            }
+        }
+
+        // Book salon
+        function bookSalon(salonName) {
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+                alert(`Booking confirmed for ${salonName}! You'll receive a confirmation email shortly.`);
+            }, 2000);
+        }
+
+        // View details
+        function viewDetails(salonName) {
+            alert(`Opening detailed view for ${salonName}`);
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const button = event.target.querySelector('.newsletter-btn');
+            const input = event.target.querySelector('.newsletter-input');
+            const originalText = button.innerHTML;
+
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+                input.value = '';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 2000);
+            }, 1500);
+        }
+
+        // Scroll effects
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
 
-        // Sorting functionality
-        document.getElementById('sortBy').addEventListener('change', function () {
+        // Sort functionality
+        document.getElementById('sortBy').addEventListener('change', function() {
             const sortBy = this.value;
             const container = document.getElementById('salonsGrid');
             const cards = Array.from(container.children);
@@ -2053,101 +1161,7 @@
                 }
             });
 
-            // Re-append sorted cards with animation
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    container.appendChild(card);
-                    card.style.animation = 'fadeInUp 0.6s ease forwards';
-                }, index * 100);
-            });
-        });
-
-        // Book salon functionality
-        function bookSalon(salonName) {
-            // Show loading animation
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...';
-            button.disabled = true;
-
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.disabled = false;
-                alert(`Great choice! Redirecting to book ${salonName}. You'll be able to select your preferred services, date, and time slot.`);
-            }, 2000);
-        }
-
-        // View details functionality
-        function viewDetails(salonName) {
-            alert(`Opening detailed view for ${salonName}. This would show more photos, complete service menu, reviews, and location details.`);
-        }
-
-        // Newsletter subscription
-        function subscribeNewsletter(event) {
-            event.preventDefault();
-            const button = event.target.querySelector('.newsletter-btn');
-            const input = event.target.querySelector('.newsletter-input');
-            const originalText = button.innerHTML;
-
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
-            button.disabled = true;
-
-            setTimeout(() => {
-                button.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
-                input.value = '';
-
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.disabled = false;
-                }, 2000);
-            }, 1500);
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function (event) {
-            const navLinks = document.getElementById('navLinks');
-            const hamburger = document.querySelector('.hamburger');
-
-            if (!navLinks.contains(event.target) && !hamburger.contains(event.target)) {
-                navLinks.classList.remove('active');
-            }
-        });
-
-        // Add scroll effect to navigation
-        window.addEventListener('scroll', function () {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(255,255,255,0.95)';
-                nav.style.backdropFilter = 'blur(15px)';
-            } else {
-                nav.style.background = 'rgba(255,255,255,0.1)';
-                nav.style.backdropFilter = 'blur(10px)';
-            }
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add parallax effect to floating elements
-        window.addEventListener('scroll', function () {
-            const scrolled = window.pageYOffset;
-            const floatingIcons = document.querySelectorAll('.floating-icon');
-
-            floatingIcons.forEach((icon, index) => {
-                const speed = 0.5 + (index * 0.1);
-                icon.style.transform = `translateY(${scrolled * speed}px)`;
-            });
+            cards.forEach(card => container.appendChild(card));
         });
     </script>
 </body>

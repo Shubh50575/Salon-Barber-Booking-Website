@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Hair Styling, Spa, Massage & More | HairHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --accent-color: #45b7d1;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+            --gradient-3: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            overflow-x: hidden;
+            background: var(--light-color);
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: var(--gradient);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-shine {
+            height: 50px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-shine:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-links ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        /* Page Title Section */
+        .page-title {
+            background: var(--gradient);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="0,0 1000,100 1000,0"/></svg>');
+            pointer-events: none;
+        }
+
+        .page-title h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideUp 1s ease forwards;
+        }
+
+        .page-title p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideUp 1s ease 0.3s forwards;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* How It Works Section */
+        .how-it-works-section {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .how-it-works-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, var(--accent-color), var(--accent-color) 10px, transparent 10px, transparent 20px);
+            z-index: 0;
+        }
+
+        .step-card {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+            border: 4px solid white;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #666;
+        }
+
+        /* Why Choose Us Section */
+        .why-choose-us-section {
+            padding: 4rem 5%;
+            background: var(--light-color);
+        }
+
+        .why-choose-us-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Services Showcase Section */
+        .services-showcase {
+            padding: 4rem 5%;
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .service-category-card:hover .category-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .category-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .example-services {
+            list-style: none;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--light-color);
+            border-radius: 15px;
+            text-align: left;
+        }
+
+        .example-services li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .example-services li .fa-check {
+            color: var(--secondary-color);
+        }
+
+        .category-btn {
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: auto;
+        }
+
+        .category-btn:hover {
+            background: #45a49a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        /* Featured Salons Section */
+        .featured-salons-section {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .featured-salons-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .salons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .salon-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .salon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .salon-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .salon-info {
+            padding: 1.5rem;
+        }
+
+        .salon-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .salon-location {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .salon-rating .fas.fa-star {
+            color: #ffd700;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--dark-color);
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .cta-btn {
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 5% 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #95a5a6;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--gradient);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links ul {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .page-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .service-category-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav>
+            <a href="index.html">
+                <img src="images/logo web.png" class="logo-shine" alt="HairHub">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="Salon.html"><i class="fas fa-spa"></i> SALON & SPA</a></li>
+                    <li><a href="Services.html" class="active"><i class="fas fa-cut"></i> SERVICES</a></li>
+                    <li><a href="List Your Business.html"><i class="fas fa-store"></i> LIST BUSINESS</a></li>
+                    <li><a href="StyleFinder.html"><i class="fas fa-search"></i> StyleFinder</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> CONTACT</a></li>
+                    <li><a href="Login.html"><i class="fas fa-user"></i> LOGIN</a></li>
+                </ul>
+            </div>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <h1>Our Services</h1>
+        <p>Explore a wide range of professional beauty and wellness services designed to make you look and feel your
+            best.</p>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section">
+        <div class="how-it-works-container">
+            <h2 class="section-title">Booking Made Easy</h2>
+            <p class="section-subtitle">Find and book your next beauty appointment in just three simple steps.</p>
+            <div class="steps-grid">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <h3 class="step-title">Explore Services</h3>
+                    <p class="step-description">Browse our extensive catalog of beauty and wellness services to find exactly what you need.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-store"></i></div>
+                    <h3 class="step-title">Find Your Salon</h3>
+                    <p class="step-description">Select from top-rated salons and spas in your area with verified reviews and photos.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h3 class="step-title">Book & Relax</h3>
+                    <p class="step-description">Choose your preferred time, book instantly, and get ready to be pampered.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Showcase -->
+    <section class="services-showcase">
+        <div class="services-container">
+            <div class="services-grid">
+                <!-- Hair Styling & Cuts -->
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-cut"></i></div>
+                    <h3 class="category-title">Hair Styling & Cuts</h3>
+                    <p class="category-description">From classic cuts to modern styles, our expert stylists are here to
+                        create your perfect look.</p>
+                    <ul class="example-services">
+                        <li><i class="fas fa-check"></i> Men's & Women's Haircuts</li>
+                        <li><i class="fas fa-check"></i> Blowouts & Styling</li>
+                        <li><i class="fas fa-check"></i> Updos & Special Occasions</li>
+                        <li><i class="fas fa-check"></i> Beard Trims & Shaves</li>
+                    </ul>
+                    <a href="Salon.html" class="category-btn">Find Stylists</a>
+                </div>
+
+                <!-- Hair Coloring -->
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-palette"></i></div>
+                    <h3 class="category-title">Hair Coloring</h3>
+                    <p class="category-description">Transform your look with vibrant colors, from subtle highlights to
+                        bold new shades.</p>
+                    <ul class="example-services">
+                        <li><i class="fas fa-check"></i> Global Hair Color</li>
+                        <li><i class="fas fa-check"></i> Highlights & Lowlights</li>
+                        <li><i class="fas fa-check"></i> Balayage & Ombre</li>
+                        <li><i class="fas fa-check"></i> Root Touch-ups</li>
+                    </ul>
+                    <a href="Salon.html" class="category-btn">Find Colorists</a>
+                </div>
+
+                <!-- Hair Treatments -->
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-leaf"></i></div>
+                    <h3 class="category-title">Hair Treatments</h3>
+                    <p class="category-description">Revitalize and nourish your hair with our range of professional
+                        treatments.</p>
+                    <ul class="example-services">
+                        <li><i class="fas fa-check"></i> Keratin & Smoothening</li>
+                        <li><i class="fas fa-check"></i> Deep Conditioning & Hair Spa</li>
+                        <li><i class="fas fa-check"></i> Anti-Dandruff Treatments</li>
+                        <li><i class="fas fa-check"></i> Organic Hair Care</li>
+                    </ul>
+                    <a href="Salon.html" class="category-btn">Find Specialists</a>
+                </div>
+
+                <!-- Spa & Wellness -->
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-spa"></i></div>
+                    <h3 class="category-title">Spa & Wellness</h3>
+                    <p class="category-description">Relax and rejuvenate your mind and body with our luxurious spa
+                        services.</p>
+                    <ul class="example-services">
+                        <li><i class="fas fa-check"></i> Rejuvenating Facials</li>
+                        <li><i class="fas fa-check"></i> Body Wraps & Scrubs</li>
+                        <li><i class="fas fa-check"></i> Aromatherapy</li>
+                        <li><i class="fas fa-check"></i> Manicures & Pedicures</li>
+                    </ul>
+                    <a href="Salon.html" class="category-btn">Find Spas</a>
+                </div>
+
+                <!-- Massage Therapy -->
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-hands"></i></div>
+                    <h3 class="category-title">Massage Therapy</h3>
+                    <p class="category-description">Relieve stress and tension with our therapeutic massage services
+                        from certified professionals.</p>
+                    <ul class="example-services">
+                        <li><i class="fas fa-check"></i> Swedish & Deep Tissue</li>
+                        <li><i class="fas fa-check"></i> Hot Stone Massage</li>
+                        <li><i class="fas fa-check"></i> Sports Massage</li>
+                        <li><i class="fas fa-check"></i> Couples Massage</li>
+                    </ul>
+                    <a href="Salon.html" class="category-btn">Find Therapists</a>
+                </div>
+
+                <!-- Makeup & Beauty -->
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-magic"></i></div>
+                    <h3 class="category-title">Makeup & Beauty</h3>
+                    <p class="category-description">Get ready for any occasion with professional makeup artistry and
+                        beauty enhancements.</p>
+                    <ul class="example-services">
+                        <li><i class="fas fa-check"></i> Bridal & Party Makeup</li>
+                        <li><i class="fas fa-check"></i> Eyelash Extensions</li>
+                        <li><i class="fas fa-check"></i> Eyebrow Shaping & Tinting</li>
+                        <li><i class="fas fa-check"></i> Airbrush Makeup</li>
+                    </ul>
+                    <a href="Salon.html" class="category-btn">Find Artists</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us-section">
+        <div class="why-choose-us-container">
+            <h2 class="section-title">Why Choose HairHub?</h2>
+            <p class="section-subtitle">We provide a seamless and trustworthy experience for all your beauty needs.</p>
+            <div class="benefits-grid">
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3 class="category-title">Verified Professionals</h3>
+                    <p class="category-description">Every salon and professional on our platform is thoroughly vetted for quality and hygiene.</p>
+                </div>
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-brain"></i></div>
+                    <h3 class="category-title">AI StyleFinder</h3>
+                    <p class="category-description">Use our cutting-edge AI to discover hairstyles and colors that perfectly suit you.</p>
+                </div>
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-tags"></i></div>
+                    <h3 class="category-title">Exclusive Deals</h3>
+                    <p class="category-description">Access special offers, discounts, and packages you won't find anywhere else.</p>
+                </div>
+                <div class="service-category-card">
+                    <div class="category-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3 class="category-title">Seamless Booking</h3>
+                    <p class="category-description">Book your appointments 24/7 in just a few clicks, with instant confirmations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Salons Section -->
+    <section class="featured-salons-section">
+        <div class="featured-salons-container">
+            <h2 class="section-title">Featured Salons</h2>
+            <p class="section-subtitle">Discover some of the top-rated and most loved salons on HairHub.</p>
+            <div class="salons-grid">
+                <!-- Featured Salon 1 -->
+                <div class="salon-card">
+                    <img src="images/salon1.jpeg" alt="XO Studio" class="salon-image">
+                    <div class="salon-info">
+                        <h3 class="salon-name">XO Studio</h3>
+                        <p class="salon-location"><i class="fas fa-map-marker-alt"></i> Sec 54 Gurugram</p>
+                        <div class="salon-rating">
+                            <i class="fas fa-star"></i> 4.8 (210 Reviews)
+                        </div>
+                        <a href="Salon.html" class="category-btn">View Details</a>
+                    </div>
+                </div>
+                <!-- Featured Salon 2 -->
+                <div class="salon-card">
+                    <img src="images/salon3.jpeg" alt="Glamour Salon" class="salon-image">
+                    <div class="salon-info">
+                        <h3 class="salon-name">Glamour Salon</h3>
+                        <p class="salon-location"><i class="fas fa-map-marker-alt"></i> Sec 17 Faridabad</p>
+                        <div class="salon-rating">
+                            <i class="fas fa-star"></i> 4.9 (150 Reviews)
+                        </div>
+                        <a href="Salon.html" class="category-btn">View Details</a>
+                    </div>
+                </div>
+                <!-- Featured Salon 3 -->
+                <div class="salon-card">
+                    <img src="images/salon5.jpeg" alt="Antheia Makeovers" class="salon-image">
+                    <div class="salon-info">
+                        <h3 class="salon-name">Antheia Makeovers</h3>
+                        <p class="salon-location"><i class="fas fa-map-marker-alt"></i> Sec 15 Dwarka</p>
+                        <div class="salon-rating">
+                            <i class="fas fa-star"></i> 5.0 (98 Reviews)
+                        </div>
+                        <a href="Salon.html" class="category-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Find Your Perfect Service?</h2>
+        <p class="cta-subtitle">Browse our directory of top-rated salons and book your appointment today!</p>
+        <a href="Salon.html" class="cta-btn">
+            <i class="fas fa-search"></i> Explore Salons & Spas
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Company Info -->
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/logo web.png" alt="HairHub"
+                        style="height: 40px; filter: brightness(0) invert(1); margin-bottom: 1rem;">
+                </div>
+                <p>HairHub is your trusted platform for discovering and booking premium beauty and wellness services. We
+                    connect you with top-rated professionals in your area.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3><i class="fas fa-link"></i> Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="Salon.html"><i class="fas fa-spa"></i> Salon & Spa</a></li>
+                    <li><a href="Services.html"><i class="fas fa-cut"></i> Services</a></li>
+                    <li><a href="List Your Business.html"><i class="fas fa-store"></i> List Your Business</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Popular Services -->
+            <div class="footer-section">
+                <h3><i class="fas fa-star"></i> Popular Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-cut"></i> Hair Styling</a></li>
+                    <li><a href="#"><i class="fas fa-palette"></i> Hair Coloring</a></li>
+                    <li><a href="#"><i class="fas fa-hands"></i> Massage Therapy</a></li>
+                    <li><a href="#"><i class="fas fa-spa"></i> Facials</a></li>
+                    <li><a href="#"><i class="fas fa-magic"></i> Bridal Makeup</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-section">
+                <h3><i class="fas fa-headset"></i> Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="contact.html"><i class="fas fa-phone"></i> Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 HairHub. All rights reserved. Made with <i class="fas fa-heart"
+                    style="color: var(--primary-color);"></i> for beauty enthusiasts worldwide.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (!navLinks.contains(event.target) && !hamburger.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Animate cards on scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = `slideUp 0.6s ease forwards`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const cards = document.querySelectorAll('.service-category-card, .step-card, .salon-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `all 0.6s ease ${index * 0.05}s`;
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+
+</html>
